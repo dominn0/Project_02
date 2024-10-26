@@ -1,17 +1,16 @@
 import "./App.css";
 import "./assets/stylenew.scss";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Beranda from "./Pages/beranda/Beranda";
-import Profil from "./Pages/Profil";
 import Navbar from "./Component/Navbar";
-import Detail from "./Pages/Detail";
 import Error from "./Pages/Error";
 import { Footer } from "./Component/Footer";
-import Product from "./Pages/product/Product";
-import Negara from "./Pages/negara/Negara";
-import Rincian from "./Pages/negara/Rincian";
 import ThemeContext from "./assets/context/ThemeContext";
 import { useState } from "react";
+import { Provider } from "react-redux";
+import store from "./store/store";
+import Beranda from "./Pages/beranda/Beranda";
+import Detail from "./Pages/Detail";
+import RatingMovies from "./Pages/RatingMovies";
 
 function App() {
   const theme = useState("light");
@@ -19,16 +18,15 @@ function App() {
   return (
     <BrowserRouter>
       <ThemeContext.Provider value={theme}>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Beranda />} />
-          <Route path="/profil" element={<Profil />} />
-          <Route path="/detail/:id" element={<Detail />} />
-          <Route path="/rincian" element={<Rincian />} />
-          <Route path="/product" element={<Product />} />
-          <Route path="/negara" element={<Negara />} />
-          <Route path="*" element={<Error />} />
-        </Routes>
+        <Provider store={store}>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Beranda />} />
+            <Route path="/detail/:id" element={<Detail />} />
+            <Route path="*" element={<Error />} />
+            <Route path="/ratingmovies" element={<RatingMovies />} />
+          </Routes>
+        </Provider>
       </ThemeContext.Provider>
       <Footer />
     </BrowserRouter>
